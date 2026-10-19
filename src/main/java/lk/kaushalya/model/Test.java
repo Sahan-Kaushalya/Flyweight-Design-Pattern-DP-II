@@ -1,7 +1,6 @@
 package lk.kaushalya.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 abstract class Zombie {
     public abstract void displayInfo();
@@ -19,6 +18,18 @@ class SharedZombie extends Zombie{
         this.type = type;
         this.attackPower = attackPower;
         this.texture = texture;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getAttackPower() {
+        return attackPower;
+    }
+
+    public String getTexture() {
+        return texture;
     }
 
     @Override
@@ -46,16 +57,26 @@ class UniqueZombie{
 
 class ZombiePool{
 
-    private static Map<String,Zombie> zombieMap = new HashMap<>();
+    private static final ArrayList<SharedZombie> sharedZombieArrayList = new ArrayList<>();
 
     public static Zombie getZombie(String type, int attackPower, String texture){
-        if(zombieMap.containsKey(type)){
-            return zombieMap.get(type);
-        }else{
-            SharedZombie sharedZombie = new SharedZombie(type, attackPower, texture);
-            zombieMap.put(type, sharedZombie);
+
+        SharedZombie sharedZombie = null;
+
+        for(SharedZombie zombieItem : sharedZombieArrayList){
+            if(zombieItem.getType().equals(type) && zombieItem.getAttackPower() == attackPower && zombieItem.getTexture().equals(texture)){
+                sharedZombie = zombieItem;
+                break;
+            }
+        }
+
+        if(sharedZombie == null){
+            sharedZombie = new SharedZombie(type, attackPower, texture);
+            sharedZombieArrayList.add(sharedZombie);
             return sharedZombie;
         }
+
+        return sharedZombie;
     }
 }
 
