@@ -62,6 +62,7 @@ class Zombie extends AbstractZombie{
         this.health = health;
     }
 
+    // Method to change the attack power of the shared zombie මේක ඔනේ නම් කරන්න පුලුවන්
     public void setAttackPower(int attackPower){
         this.sharedZombie = SharedZombiePool
                 .getZombie(this.sharedZombie.getType(),attackPower,this.sharedZombie.getTexture());
