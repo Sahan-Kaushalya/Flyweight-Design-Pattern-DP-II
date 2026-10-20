@@ -50,6 +50,23 @@ class Zombie extends AbstractZombie{
         this.sharedZombie = SharedZombiePool.getZombie(type,attackPower,texture);
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void setAttackPower(int attackPower){
+        this.sharedZombie = SharedZombiePool
+                .getZombie(this.sharedZombie.getType(),attackPower,this.sharedZombie.getTexture());
+    }
+
     @Override
     public void displayInfo() {
         System.out.println();
